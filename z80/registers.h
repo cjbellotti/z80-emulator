@@ -43,12 +43,5 @@ typedef struct {
 		};
 	};
 
-	uint16_t sp;     // Stack Pointer
-	uint16_t pc;     // Program Counter
-	uint16_t ix;     // Index X
-	uint16_t iy;     // Index Y
-
-	uint8_t i;       // Interrupt Vector
-	uint8_t r;       // Memory Refresh
 } registers_t;
 #endif
