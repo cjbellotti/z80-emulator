@@ -9,6 +9,7 @@
 #define OPC_P 0x30
 #define OPC_Q 0x08
 
+
 typedef struct 
 {
 			// 7 6 5 4  3 2 1 0
@@ -20,7 +21,23 @@ typedef struct
 
 } opcode_t;
 
+typedef void (*OPCODE)(opcode_t*, cpu_t*);
+
+OPCODE opcodes[4][8];
+
 void extract_opcode(uint8_t opcode, opcode_t* opstruct);
 void execute_opcode(cpu_t*);
+
+// opcodes X=0 and Z=0 to 7
+void opcodes00(opcode_t*, cpu_t*);
+void opcodes01(opcode_t*, cpu_t*);
+void opcodes02(opcode_t*, cpu_t*);
+void opcodes04(opcode_t*, cpu_t*);
+void opcodes05(opcode_t*, cpu_t*);
+void opcodes06(opcode_t*, cpu_t*);
+void opcodes07(opcode_t*, cpu_t*);
+
+// opcodes X=1 and Z=6
+void opcodes16(opcode_t*, cpu_t*);
 
 #endif

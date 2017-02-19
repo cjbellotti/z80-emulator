@@ -26,6 +26,9 @@ typedef struct {
 
 	uint8_t i;       		// Interrupt Vector
 	uint8_t r;       		// Memory Refresh
+	
+	uint8_t m_cycles;
+	uint8_t t_states;
 } cpu_t;
 
 #endif
