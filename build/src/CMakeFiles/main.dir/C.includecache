@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../z80/cpu.h
+registers.h
+../z80/registers.h
+
+../z80/opcodes.h
+stdint.h
+-
+cpu.h
+../z80/cpu.h
+
+../z80/registers.h
+stdint.h
+-
+
+/Users/cjbellotti/Proyectos/z80-emulator/src/main.c
+stdio.h
+-
+cpu.h
+/Users/cjbellotti/Proyectos/z80-emulator/src/cpu.h
+opcodes.h
+/Users/cjbellotti/Proyectos/z80-emulator/src/opcodes.h
+
