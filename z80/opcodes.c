@@ -17,9 +17,9 @@ extract_opcode(uint8_t opcode, opcode_t* opstruct)
 void 
 opcodes00(opcode_t* opcode, cpu_t* cpu)
 {
-	printf("Opcodes X=0 and Z=0 to 7\n");
-
 	uint16_t utmp16;
+	uint8_t utmp8;
+	int8_t tmp8;
 	switch(opcode->y)
 	{
 		case 0:
@@ -33,6 +33,19 @@ opcodes00(opcode_t* opcode, cpu_t* cpu)
 			cpu->alternative.af = utmp16;
 			cpu->m_cycles=1;
 			cpu->t_states=4;
+			break;
+
+		case 2:
+			if (cpu->main.b > 0) {
+				cpu->main.b--;
+				tmp8 = cpu->mem[cpu->pc++];
+				cpu->pc += tmp8 + 2;
+				cpu->m_cycles=3;
+				cpu->t_states=13;
+			} else {
+				cpu->m_cycles=2;
+				cpu->t_states=8;
+			}
 			break;
 			
 		default:
@@ -92,13 +105,6 @@ execute_opcode(cpu_t* cpu)
 
 	opcode_t st_opcode;
 	extract_opcode(opcode, &st_opcode);
-	printf("Opcode: %x\nX: %x\nY: %x\nZ: %x\nP: %x\n Q: %x\n", 
-			opcode,
-			st_opcode.x,
-			st_opcode.y,
-			st_opcode.z,
-			st_opcode.p,
-			st_opcode.q);
 
 	// Process opcode
 	opcodes[st_opcode.x][st_opcode.z](&st_opcode, cpu);
