@@ -22,11 +22,13 @@ opcodes00(opcode_t* opcode, cpu_t* cpu)
 	int8_t tmp8;
 	switch(opcode->y)
 	{
+		// NOP
 		case 0:
 			cpu->m_cycles=1;
 			cpu->t_states=4;
 			break;
-		
+	
+		// EX AF, AF'	
 		case 1:
 			utmp16 = cpu->main.af;
 			cpu->main.af = cpu->alternative.af;
@@ -35,11 +37,13 @@ opcodes00(opcode_t* opcode, cpu_t* cpu)
 			cpu->t_states=4;
 			break;
 
+		// DJNZ d
 		case 2:
 			if (cpu->main.b > 0) {
 				cpu->main.b--;
 				tmp8 = cpu->mem[cpu->pc++];
-				cpu->pc += tmp8 + 2;
+				// cpu->pc += tmp8 + 2;
+				cpu->pc += tmp8;
 				cpu->m_cycles=3;
 				cpu->t_states=13;
 			} else {
