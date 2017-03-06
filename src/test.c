@@ -77,12 +77,34 @@ void test_djnz()
 	
 }
 
+void test_jr()
+{
+	printf("%sOpcode JR d:", K_WHITE);
+	cpu_t cpu;
+	cpu.pc = 0x00fa;
+	cpu.mem[0x00fa] = 0x18;
+	cpu.mem[0x00fb] = 0x06;
+	execute_opcode(&cpu);
+	if (cpu.m_cycles == 3 &&
+	    cpu.t_states == 12 &&
+	    cpu.pc == 0x0102)
+	{
+		printf("%sOK", K_GREEN);
+	}
+	else
+	{
+		printf("%sERROR", K_RED);
+	}
+	printf("\n");
+}
+
 int main(int argc, char** argv) 
 {
 	init();
 	test_nop();
 	test_ex_af_af();
 	test_djnz();
+	test_jr();
 	printf("%s\n", K_NORMAL);
 	return 0;
 }

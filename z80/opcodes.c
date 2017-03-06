@@ -51,6 +51,12 @@ opcodes00(opcode_t* opcode, cpu_t* cpu)
 				cpu->t_states=8;
 			}
 			break;
+
+		case 3:
+			tmp8 = cpu->mem[cpu->pc++];
+			cpu->pc += tmp8;
+			cpu->m_cycles=3;
+			cpu->t_states=12;
 			
 		default:
 			break;
