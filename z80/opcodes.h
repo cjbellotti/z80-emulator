@@ -9,6 +9,7 @@
 #define OPC_P 0x30
 #define OPC_Q 0x08
 
+#define FETCH_IN(X) X = cpu->mem[cpu->pc++]
 
 typedef struct 
 {

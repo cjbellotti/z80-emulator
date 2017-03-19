@@ -41,8 +41,8 @@ opcodes00(opcode_t* opcode, cpu_t* cpu)
 		case 2:
 			if (cpu->main.b > 0) {
 				cpu->main.b--;
-				tmp8 = cpu->mem[cpu->pc++];
-				// cpu->pc += tmp8 + 2;
+				//tmp8 = cpu->mem[cpu->pc++];
+				FETCH_IN(tmp8);
 				cpu->pc += tmp8;
 				cpu->m_cycles=3;
 				cpu->t_states=13;
@@ -52,12 +52,27 @@ opcodes00(opcode_t* opcode, cpu_t* cpu)
 			}
 			break;
 
+		// JR d
 		case 3:
-			tmp8 = cpu->mem[cpu->pc++];
+			//tmp8 = cpu->mem[cpu->pc++];
+			FETCH_IN(tmp8);
 			cpu->pc += tmp8;
 			cpu->m_cycles=3;
 			cpu->t_states=12;
-			
+			break;	
+		// JR C, d	
+		case 7:
+			FETCH_IN(tmp8);
+			if (cpu->main.f & FLAG_C) {
+				cpu->pc += tmp8;
+				cpu->m_cycles=3;
+				cpu->t_states=12;
+			} else {
+				cpu->m_cycles=2;
+				cpu->t_states=7;
+			}
+			break;
+				
 		default:
 			break;
 	}

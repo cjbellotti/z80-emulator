@@ -98,6 +98,41 @@ void test_jr()
 	printf("\n");
 }
 
+void test_jrc() 
+{
+	printf("%sOpcode JR C,d:", K_WHITE);
+	cpu_t cpu;
+	cpu.main.f &= FLAG_C;
+	cpu.pc = 0x00fa;
+	cpu.mem[0x00fa] = 0x38;
+	cpu.mem[0x00fb] = 0x06;
+	execute_opcode(&cpu);
+	if (cpu.m_cycles == 3 &&
+	    cpu.t_states == 12 &&
+	    cpu.pc == 0x0102)
+	{
+		cpu.main.f = 0x0;
+		cpu.pc = 0x00fa;
+		cpu.mem[0x00fa] = 0x38;
+		cpu.mem[0x00fb] = 0x06;
+		execute_opcode(&cpu);
+		if (cpu.m_cycles == 2 &&
+		    cpu.t_states == 7 &&
+		    cpu.pc == 0xfc)
+		{
+			printf("%sOK", K_GREEN);
+		}
+		else
+		{
+			printf("%sERROR", K_RED);
+		}
+	}
+	else
+	{
+		printf("%sERROR", K_RED);
+	}
+	printf("\n");
+}
 int main(int argc, char** argv) 
 {
 	init();
@@ -105,6 +140,7 @@ int main(int argc, char** argv)
 	test_ex_af_af();
 	test_djnz();
 	test_jr();
+	test_jrc();
 	printf("%s\n", K_NORMAL);
 	return 0;
 }
